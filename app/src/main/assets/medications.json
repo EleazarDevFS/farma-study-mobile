@@ -1,0 +1,473 @@
+{
+  "medications": [
+    {
+      "name": "alprazolam",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": "Es una benzodiacepina para la ansiedad y el trastorno de pánico, conocido por su acción rápida.",
+      "organicSystem": null
+    },
+    {
+      "name": "amiodarona",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un antiarrítmico usado para el tratamiento de arritmias ventriculares y supraventriculares graves."
+    },
+    {
+      "name": "amitriptilina",
+      "therapeuticUse": "Es un antidepresivo tricíclico usado para la depresión y el dolor neuropático, también ayuda en la migraña crónica.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "amlodipino",
+      "therapeuticUse": null,
+      "mechanism": "Es un bloqueador de los canales de calcio, utilizado para tratar la hipertensión y la angina de pecho.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "amoxicilina",
+      "therapeuticUse": "Es una penicilina usada para infecciones bacterianas comunes como otitis y sinusitis.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "anfotericinab",
+      "therapeuticUse": "Es un polieno usado para infecciones fúngicas graves, administrado generalmente por vía intravenosa.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "aspirina",
+      "therapeuticUse": "Es un AINE que reduce el dolor, la fiebre y previene coágulos, también usado para prevención de ataques cardíacos.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "atenolol",
+      "therapeuticUse": null,
+      "mechanism": "Es un betabloqueador utilizado para la hipertensión y la angina, con menos efectos secundarios en el sistema nervioso central.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "azitromicina",
+      "therapeuticUse": "Es un macrólido utilizado para diversas infecciones bacterianas, famoso por su uso en infecciones respiratorias y de transmisión sexual.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "budesonida",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un corticosteroide inhalado utilizado para el tratamiento del asma y la EPOC, reduce la inflamación de las vías respiratorias."
+    },
+    {
+      "name": "captopril",
+      "therapeuticUse": "Es un IECA para la hipertensión y la insuficiencia cardíaca, tiene un inicio de acción rápido.",
+      "mechanism": "Es un IECA para la hipertensión y la insuficiencia cardíaca, tiene un inicio de acción rápido.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "carbamazepina",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un antiepiléptico usado para el tratamiento de convulsiones y neuralgia del trigémino."
+    },
+    {
+      "name": "cefalexina",
+      "therapeuticUse": "Es una cefalosporina usada para tratar infecciones bacterianas, especialmente del tracto respiratorio y piel.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "ceftriaxona",
+      "therapeuticUse": "Es una cefalosporina para infecciones bacterianas graves, frecuentemente usada en infecciones hospitalarias.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "cimetidina",
+      "therapeuticUse": null,
+      "mechanism": "Es un antagonista de los receptores H2, usado para reducir la acidez estomacal, interactúa con muchos otros medicamentos.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "ciprofloxacino",
+      "therapeuticUse": "Es una quinolona usada para infecciones bacterianas graves, como las del tracto urinario y respiratorio.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "codeína",
+      "therapeuticUse": "Es un opioide usado para tratar el dolor moderado y la tos, disponible en jarabes y tabletas.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "diazepan",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": "Es una benzodiacepina usada para la ansiedad, el insomnio y los espasmos musculares.",
+      "organicSystem": null
+    },
+    {
+      "name": "enalapril",
+      "therapeuticUse": "Es un IECA usado para tratar la hipertensión y la insuficiencia cardíaca, mejora la función cardíaca.",
+      "mechanism": "Es un IECA usado para tratar la hipertensión y la insuficiencia cardíaca, mejora la función cardíaca.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "eritromicina",
+      "therapeuticUse": "Es un macrólido para infecciones bacterianas y acné severo, también usado para infecciones respiratorias.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "esomeprazol",
+      "therapeuticUse": null,
+      "mechanism": "Es un inhibidor de la bomba de protones, similar al omeprazol, pero con una acción prolongada.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "famotidina",
+      "therapeuticUse": null,
+      "mechanism": "Es un antagonista de los receptores H2, efectivo para reducir la producción de ácido gástrico y tratar el reflujo.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "fenelzina",
+      "therapeuticUse": "Es un IMAO usado para la depresión resistente, requiere una dieta baja en tiramina.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "fentanilo",
+      "therapeuticUse": "Es un opioide potente para el dolor severo, utilizado comúnmente en anestesia y cuidados paliativos.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "fluconazol",
+      "therapeuticUse": "Es un antifúngico usado para infecciones por hongos y levaduras, particularmente candidiasis.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "fluoxetina",
+      "therapeuticUse": "Es un ISRS usado para la depresión, ansiedad y otros trastornos, conocido por tratar el trastorno obsesivo-compulsivo.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "fluticasona",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un corticosteroide inhalado para el asma y la rinitis alérgica, reduce la inflamación y la secreción de moco."
+    },
+    {
+      "name": "furosemida",
+      "therapeuticUse": "Es un diurético usado para tratar la hipertensión y el edema, eficaz para eliminar el exceso de líquido.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "haloperidol",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un antipsicótico utilizado para el tratamiento de la esquizofrenia y trastornos psicóticos."
+    },
+    {
+      "name": "heparina",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un anticoagulante usado en la prevención y tratamiento de trombosis y embolias, administrado por inyección."
+    },
+    {
+      "name": "hidroclorotiazida",
+      "therapeuticUse": "Es un diurético para la hipertensión y el edema, frecuentemente combinado con otros antihipertensivos.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "ibuprofeno",
+      "therapeuticUse": "Es un AINE para aliviar el dolor, la fiebre y la inflamación, disponible en tabletas y gel.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "ipratropio",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un broncodilatador anticolinérgico usado para el tratamiento del EPOC y el asma, mejora la respiración."
+    },
+    {
+      "name": "itraconazol",
+      "therapeuticUse": "Es un antifúngico para infecciones fúngicas sistémicas, también usado para tratar onicomicosis.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "lamivudina",
+      "therapeuticUse": "Es un antiviral para el VIH y la hepatitis B, frecuentemente combinado con otros antirretrovirales.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "lansoprazol",
+      "therapeuticUse": null,
+      "mechanism": "Es un inhibidor de la bomba de protones, utilizado para tratar el reflujo gastroesofágico y las úlceras, disponible en forma de cápsulas y granulado.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "levofloxacino",
+      "therapeuticUse": "Es una quinolona para infecciones respiratorias y urinarias, también eficaz contra la neumonía y bronquitis.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "lidocaína",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un anestésico local y antiarrítmico utilizado para anestesia local y el tratamiento de arritmias cardíacas."
+    },
+    {
+      "name": "lisinopril",
+      "therapeuticUse": null,
+      "mechanism": "Es un IECA utilizado para la hipertensión y la insuficiencia cardíaca, ayuda a prevenir complicaciones renales en diabéticos.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "lopinavir",
+      "therapeuticUse": "Es un antiviral combinado con ritonavir para el VIH, inhibe la replicación del virus.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "lorazepan",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": "Es una benzodiacepina para la ansiedad y el insomnio, también usado como premedicación antes de procedimientos médicos.",
+      "organicSystem": null
+    },
+    {
+      "name": "losartán",
+      "therapeuticUse": "Es un ARA II utilizado para la hipertensión y la insuficiencia cardíaca, también protege los riñones en diabéticos.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "metoprolol",
+      "therapeuticUse": "Es un betabloqueador usado para la hipertensión y problemas cardíacos, también reduce la frecuencia cardíaca.",
+      "mechanism": "Es un betabloqueador usado para la hipertensión y problemas cardíacos, también reduce la frecuencia cardíaca.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "morfina",
+      "therapeuticUse": "Es un opioide utilizado para aliviar el dolor severo,",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "naproxeno",
+      "therapeuticUse": "Es un AINE utilizado para el dolor, la fiebre y la inflamación, eficaz para el alivio prolongado.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "nifedipino",
+      "therapeuticUse": null,
+      "mechanism": "Es un bloqueador de los canales de calcio, efectivo para la hipertensión y la angina, especialmente en hipertensión severa.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "nistatina",
+      "therapeuticUse": "Es un polieno utilizado para infecciones fúngicas tópicas y candidiasis oral.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "nortriptilina",
+      "therapeuticUse": "Es un antidepresivo tricíclico para la depresión y el dolor neuropático, menos sedante que la amitriptilina.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "omeprazol",
+      "therapeuticUse": null,
+      "mechanism": "Es un inhibidor de la bomba de protones, usado para tratar el reflujo gastroesofágico y las úlceras pépticas.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "penicilina",
+      "therapeuticUse": "Es un antibiótico que trata diversas infecciones bacterianas, particularmente infecciones estreptocócicas.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "penicilinag",
+      "therapeuticUse": "Es una forma de penicilina para infecciones bacterianas graves, administrada por vía intravenosa.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "penicilinas",
+      "therapeuticUse": "Son antibióticos que combaten infecciones bacterianas, efectivos contra muchas bacterias gram-positivas.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "propranolol",
+      "therapeuticUse": "Es un betabloqueador para hipertensión, ansiedad y migrañas, también utilizado en el tratamiento del temblor esencial.",
+      "mechanism": "Es un betabloqueador para hipertensión, ansiedad y migrañas, también utilizado en el tratamiento del temblor esencial.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "ranitidina",
+      "therapeuticUse": null,
+      "mechanism": "Es un antagonista de los receptores H2, utilizado para reducir la acidez estomacal y tratar úlceras.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "risperidona",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un antipsicótico usado para la esquizofrenia y el trastorno bipolar, también para irritabilidad en el autismo."
+    },
+    {
+      "name": "ritonavir",
+      "therapeuticUse": "Es un antiviral usado en el tratamiento del VIH, también mejora la eficacia de otros antivirales.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "salbutamol",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un broncodilatador utilizado para aliviar el broncoespasmo en el asma y la EPOC, conocido como inhalador de rescate."
+    },
+    {
+      "name": "sertralina",
+      "therapeuticUse": "Es un ISRS para la depresión, ansiedad y otros trastornos, también eficaz en el tratamiento del trastorno de estrés postraumático.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "sulfadiazina",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": "Es una sulfonamida usada para tratar infecciones bacterianas y en el manejo de quemaduras.",
+      "organicSystem": null
+    },
+    {
+      "name": "sulfametoxazol",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": "Es una sulfonamida utilizada en combinación con trimetoprima para infecciones bacterianas.",
+      "organicSystem": null
+    },
+    {
+      "name": "sulfasalazina",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": "Es una sulfonamida utilizada en el tratamiento de la colitis ulcerosa y la artritis reumatoide.",
+      "organicSystem": null
+    },
+    {
+      "name": "tranilcipromina",
+      "therapeuticUse": "Es un IMAO para la depresión resistente, conocido por su rápido inicio de acción.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "valproato",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un antiepiléptico utilizado para convulsiones, trastorno bipolar y prevención de migrañas."
+    },
+    {
+      "name": "valsartán",
+      "therapeuticUse": "Es un ARA II para la hipertensión y la insuficiencia cardíaca, reduce el riesgo de hospitalización por insuficiencia cardíaca.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "verapamilo",
+      "therapeuticUse": null,
+      "mechanism": "Es un bloqueador de los canales de calcio, usado para la hipertensión, arritmias y angina.",
+      "chemicalStructure": null,
+      "organicSystem": null
+    },
+    {
+      "name": "warfarina",
+      "therapeuticUse": null,
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": "Es un anticoagulante que previene la formación de coágulos sanguíneos, requiere monitoreo regular de INR."
+    },
+    {
+      "name": "zidovudina",
+      "therapeuticUse": "Es un antiviral usado en el tratamiento del VIH, uno de los primeros medicamentos aprobados para el VIH.",
+      "mechanism": null,
+      "chemicalStructure": null,
+      "organicSystem": null
+    }
+  ]
+}

@@ -1,0 +1,384 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "¿Para qué se utiliza la morfina?",
+      "optionA": "a) Para tratar infecciones bacterianas.",
+      "optionB": "b) Para aliviar el dolor severo, especialmente en cuidados paliativos.",
+      "optionC": "c) Para reducir la acidez estomacal.",
+      "optionD": "d) Para tratar la hipertensión.",
+      "correctOption": "b",
+      "quizPart": 1
+    },
+    {
+      "id": 2,
+      "question": "¿Qué efecto tiene la codeína?",
+      "optionA": "a) Es un diurético.",
+      "optionB": "b) Es un AINE. ",
+      "optionC": "d) Es un antifúngico.",
+      "optionD": "c) Es un opioide usado para tratar el dolor moderado y la tos.",
+      "correctOption": "d",
+      "quizPart": 1
+    },
+    {
+      "id": 3,
+      "question": "¿Cuál es el uso principal del ibuprofeno?",
+      "optionA": "a) Para tratar la hipertensión.",
+      "optionB": "b)  Para tratar infecciones bacterianas.",
+      "optionC": "c) Para aliviar el dolor, la fiebre y la inflamación.",
+      "optionD": "d) Para prevenir coágulos sanguíneos.",
+      "correctOption": "c",
+      "quizPart": 1
+    },
+    {
+      "id": 4,
+      "question": "¿Para qué se utiliza el fentanilo?",
+      "optionA": "a) Para tratar infecciones fúngicas. ",
+      "optionB": "b) Para tratar el acné severo.",
+      "optionC": "c) Para reducir la inflamación.",
+      "optionD": "d) Para tratar el dolor severo, comúnmente en anestesia y cuidados paliativos.",
+      "correctOption": "d",
+      "quizPart": 1
+    },
+    {
+      "id": 5,
+      "question": "¿Cuál es una de las principales indicaciones de la aspirina?",
+      "optionA": "a) Tratar la hipertensión.",
+      "optionB": "b) Tratar infecciones virales.",
+      "optionC": "c) Reducir el dolor, la fiebre y prevenir coágulos.",
+      "optionD": "d) Tratar infecciones fúngicas.",
+      "correctOption": "c",
+      "quizPart": 1
+    },
+    {
+      "id": 6,
+      "question": "¿Para qué se usa el naproxeno?",
+      "optionA": "a)  Para tratar el dolor, la fiebre y la inflamación.",
+      "optionB": "b) Para tratar el VIH.",
+      "optionC": "c) Para reducir la acidez estomacal.",
+      "optionD": "d) Para tratar el acné severo.",
+      "correctOption": "a",
+      "quizPart": 1
+    },
+    {
+      "id": 7,
+      "question": "¿Cuál es el mecanismo de acción de las penicilinas?",
+      "optionA": "a) Son AINEs.",
+      "optionB": "b) Son antibióticos que combaten infecciones bacterianas.",
+      "optionC": "c) Son antivirales para el VIH.",
+      "optionD": "d) Son antifúngicos.",
+      "correctOption": "b",
+      "quizPart": 1
+    },
+    {
+      "id": 8,
+      "question": "¿Para qué se utiliza la amoxicilina?",
+      "optionA": "a) Para tratar infecciones bacterianas comunes como otitis y sinusitis.",
+      "optionB": "b) Para tratar el dolor moderado.",
+      "optionC": "c) Para reducir la acidez estomacal.",
+      "optionD": "d) Para tratar infecciones fúngicas.",
+      "correctOption": "a",
+      "quizPart": 2
+    },
+    {
+      "id": 9,
+      "question": "¿Qué infección trata principalmente la penicilina?",
+      "optionA": "a) Infecciones virales.",
+      "optionB": "b) Infecciones bacterianas, particularmente infecciones estreptocócicas.",
+      "optionC": "d) Dolor severo. ",
+      "optionD": "c) Infecciones fúngicas.",
+      "correctOption": "b",
+      "quizPart": 2
+    },
+    {
+      "id": 10,
+      "question": "¿Para qué se usa la cefalexina?",
+      "optionA": "a) Para tratar infecciones virales.",
+      "optionB": "b) Para tratar el dolor severo.",
+      "optionC": "c) Para tratar infecciones fúngicas.",
+      "optionD": "d) Para tratar infecciones bacterianas del tracto respiratorio y piel.",
+      "correctOption": "d",
+      "quizPart": 2
+    },
+    {
+      "id": 11,
+      "question": "¿Cuál es la principal vía de administración de la penicilina G?",
+      "optionA": "a) Oral.",
+      "optionB": "b) Intramuscular.",
+      "optionC": "c) Intravenosa.",
+      "optionD": "d) Tópica.",
+      "correctOption": "c",
+      "quizPart": 2
+    },
+    {
+      "id": 12,
+      "question": "¿En qué tipo de infecciones se usa comúnmente la ceftriaxona?",
+      "optionA": "a) Infecciones virales.",
+      "optionB": "b) Infecciones fúngicas.",
+      "optionC": "c) Infecciones bacterianas graves.",
+      "optionD": "d) Dolor crónico.",
+      "correctOption": "c",
+      "quizPart": 2
+    },
+    {
+      "id": 13,
+      "question": "¿Qué tipo de fármaco es la eritromicina?",
+      "optionA": "a) Un antifúngico.",
+      "optionB": "b) Un macrólido para infecciones bacterianas y acné severo.",
+      "optionC": "c) Un antiviral.",
+      "optionD": "d) Un AINE.",
+      "correctOption": "b",
+      "quizPart": 2
+    },
+    {
+      "id": 14,
+      "question": "¿Para qué se utiliza la azitromicina?",
+      "optionA": "a) Tratar infecciones fúngicas. ",
+      "optionB": "b) Tratar diversas infecciones bacterianas, incluyendo respiratorias y de transmisión sexual.",
+      "optionC": "c) Tratar dolor severo.",
+      "optionD": "d) Reducir la fiebre.",
+      "correctOption": "b",
+      "quizPart": 2
+    },
+    {
+      "id": 15,
+      "question": "¿En qué tipo de infecciones se usa el ciprofloxacino?",
+      "optionA": "a) Infecciones virales.",
+      "optionB": "b) Dolor crónico.",
+      "optionC": "c) Infecciones fúngicas.",
+      "optionD": "d) Infecciones bacterianas graves del tracto urinario y respiratorio.",
+      "correctOption": "d",
+      "quizPart": 3
+    },
+    {
+      "id": 16,
+      "question": "¿Qué infecciones trata el levofloxacino?",
+      "optionA": "a) Infecciones virales.",
+      "optionB": "b) Infecciones respiratorias y urinarias.",
+      "optionC": "d) Dolor severo. ",
+      "optionD": "c) Infecciones fúngicas.",
+      "correctOption": "b",
+      "quizPart": 3
+    },
+    {
+      "id": 17,
+      "question": "¿Para qué se utiliza el itraconazol?",
+      "optionA": "a) Tratar infecciones bacterianas.",
+      "optionB": "b) Reducir la inflamación.",
+      "optionC": "c) Aliviar el dolor.",
+      "optionD": "d) Tratar infecciones por hongos y levaduras, particularmente candidiasis.",
+      "correctOption": "d",
+      "quizPart": 3
+    },
+    {
+      "id": 18,
+      "question": "¿Cuál es el uso principal del fluconazol?",
+      "optionA": "a) Tratar infecciones virales.",
+      "optionB": "b) Tratar infecciones fúngicas sistémicas y onicomicosis.",
+      "optionC": "c) Tratar dolor moderado.",
+      "optionD": "d) Reducir la fiebre.",
+      "correctOption": "b",
+      "quizPart": 3
+    },
+    {
+      "id": 19,
+      "question": "¿Qué tipo de fármaco es la anfotericina B?",
+      "optionA": "a) Un antibiótico.",
+      "optionB": "b) Un antiviral.",
+      "optionC": "c) Un antifúngico para infecciones fúngicas graves.",
+      "optionD": "d) Un AINE.",
+      "correctOption": "c",
+      "quizPart": 3
+    },
+    {
+      "id": 20,
+      "question": "¿Cuál es el uso principal de la nistatina?",
+      "optionA": "a) Tratar infecciones fúngicas tópicas y candidiasis oral.",
+      "optionB": "b) Tratar infecciones virales.",
+      "optionC": "c) Aliviar el dolor.",
+      "optionD": "d) Reducir la inflamación.",
+      "correctOption": "a",
+      "quizPart": 3
+    },
+    {
+      "id": 21,
+      "question": "¿Cuál es el uso principal del ritonavir?",
+      "optionA": "a) Tratar infecciones bacterianas.",
+      "optionB": "b) Tratar el VIH y mejorar la eficacia de otros antivirales.",
+      "optionC": "c) Tratar infecciones fúngicas.",
+      "optionD": "d) Aliviar el dolor crónico.",
+      "correctOption": "b",
+      "quizPart": 3
+    },
+    {
+      "id": 22,
+      "question": "¿Para qué se utiliza el lopinavir?",
+      "optionA": "a)  Tratar el VIH combinado con ritonavir.",
+      "optionB": "b)  Tratar infecciones virales comunes.",
+      "optionC": "c) Tratar infecciones fúngicas.",
+      "optionD": "d) Reducir la inflamación.",
+      "correctOption": "a",
+      "quizPart": 4
+    },
+    {
+      "id": 23,
+      "question": "¿Qué tipo de medicamento es la zidovudina?",
+      "optionA": "a) Un antifúngico.",
+      "optionB": "b) Un antiviral usado en el tratamiento del VIH.",
+      "optionC": "d) Un AINE.",
+      "optionD": "c) Un antibiótico.",
+      "correctOption": "b",
+      "quizPart": 4
+    },
+    {
+      "id": 24,
+      "question": "¿Qué tipo de medicamento es el enalapril?",
+      "optionA": "a) Un IECA usado para tratar la hipertensión y la insuficiencia cardíaca.",
+      "optionB": "b) Un antibiótico.",
+      "optionC": "c) Un antifúngico.",
+      "optionD": "d) Un AINE.",
+      "correctOption": "a",
+      "quizPart": 4
+    },
+    {
+      "id": 25,
+      "question": "¿Para qué se utiliza la lamivudina?",
+      "optionA": "a) Tratar infecciones bacterianas.",
+      "optionB": "b)  Aliviar el dolor.",
+      "optionC": "c) Tratar el VIH y la hepatitis B.",
+      "optionD": "d) Reducir la fiebre.",
+      "correctOption": "c",
+      "quizPart": 4
+    },
+    {
+      "id": 26,
+      "question": "¿Cuál es el uso principal del captopril?",
+      "optionA": "a) Tratar infecciones bacterianas.",
+      "optionB": "b) Tratar infecciones fúngicas.",
+      "optionC": "c) Aliviar el dolor.",
+      "optionD": "d) Tratar la hipertensión y la insuficiencia cardíaca.",
+      "correctOption": "d",
+      "quizPart": 4
+    },
+    {
+      "id": 27,
+      "question": "¿Para qué se utiliza el losartán?",
+      "optionA": "a) Tratar infecciones virales.",
+      "optionB": "b) Tratar la hipertensión y la insuficiencia cardíaca, y proteger los riñones en diabéticos",
+      "optionC": "c) Tratar infecciones fúngicas.",
+      "optionD": "d) Reducir la fiebre.",
+      "correctOption": "b",
+      "quizPart": 4
+    },
+    {
+      "id": 28,
+      "question": "¿Qué tipo de fármaco es el valsartán?",
+      "optionA": "a) Un antibiótico.",
+      "optionB": "b) Un ARA II para la hipertensión y la insuficiencia cardíaca.",
+      "optionC": "c) Un antiviral.",
+      "optionD": "d) Un AINE.",
+      "correctOption": "b",
+      "quizPart": 4
+    },
+    {
+      "id": 29,
+      "question": "¿Cuál es el uso principal del metoprolol?",
+      "optionA": "a) Tratar infecciones virales.",
+      "optionB": "b) Tratar la hipertensión y problemas cardíacos, y reducir la frecuencia cardíaca.",
+      "optionC": "c) Tratar infecciones fúngicas.",
+      "optionD": "d) Aliviar el dolor crónico.",
+      "correctOption": "b",
+      "quizPart": 4
+    },
+    {
+      "id": 30,
+      "question": "¿Cuál es el uso principal de la nortriptilina?",
+      "optionA": "a) Tratar infecciones bacterianas.",
+      "optionB": "b)Tratar infecciones fúngicas.",
+      "optionC": "c) Tratar la depresión y el dolor neuropático.",
+      "optionD": "d) Reducir la fiebre.",
+      "correctOption": "c",
+      "quizPart": 5
+    },
+    {
+      "id": 31,
+      "question": "¿Qué condiciones trata el propranolol?",
+      "optionA": "a) Infecciones bacterianas.",
+      "optionB": "b) Infecciones fúngicas.",
+      "optionC": "d) VIH.",
+      "optionD": "c)  Hipertensión, ansiedad y migrañas, también usado en el tratamiento del temblor esencial.",
+      "correctOption": "d",
+      "quizPart": 5
+    },
+    {
+      "id": 32,
+      "question": "¿Para qué se utiliza la hidroclorotiazida?",
+      "optionA": "a) Tratar infecciones virales.",
+      "optionB": "b)Tratar infecciones fúngicas.",
+      "optionC": "c) Tratar la hipertensión y el edema.",
+      "optionD": "d) Aliviar el dolor severo.",
+      "correctOption": "c",
+      "quizPart": 5
+    },
+    {
+      "id": 33,
+      "question": "¿Cuál es el uso principal de la furosemida?",
+      "optionA": "a) Tratar infecciones bacterianas. ",
+      "optionB": "b) Tratar la hipertensión y el edema.",
+      "optionC": "c) Tratar infecciones fúngicas.",
+      "optionD": "d) Aliviar el dolor.",
+      "correctOption": "b",
+      "quizPart": 5
+    },
+    {
+      "id": 34,
+      "question": "¿Qué tipo de medicamento es la fluoxetina?",
+      "optionA": "a)Un ISRS usado para la depresión, ansiedad y otros trastornos.",
+      "optionB": "b) Un antiviral.",
+      "optionC": "c) Un antifúngico.",
+      "optionD": "d) Un AINE.",
+      "correctOption": "a",
+      "quizPart": 5
+    },
+    {
+      "id": 35,
+      "question": "¿Cuál es el uso principal de la sertralina?",
+      "optionA": "a) Tratar infecciones bacterianas.",
+      "optionB": "b) Tratar la depresión, ansiedad y otros trastornos, y el trastorno de estrés postraumático.",
+      "optionC": "c) Tratar infecciones fúngicas.",
+      "optionD": "d) Reducir la inflamación.",
+      "correctOption": "b",
+      "quizPart": 5
+    },
+    {
+      "id": 36,
+      "question": "¿Para qué se utiliza la amitriptilina?",
+      "optionA": "a) Tratar infecciones virales.",
+      "optionB": "b) Tratar infecciones fúngicas.",
+      "optionC": "c) Aliviar el dolor crónico.",
+      "optionD": "d) Tratar la depresión y el dolor neuropático.",
+      "correctOption": "d",
+      "quizPart": 5
+    },
+    {
+      "id": 37,
+      "question": "¿Qué tipo de fármaco es la fenelzina?",
+      "optionA": "a) Un antibiótico.",
+      "optionB": "b) Un IMAO usado para la depresión resistente.",
+      "optionC": "d) Un AINE.",
+      "optionD": "c) Un antifúngico.",
+      "correctOption": "b",
+      "quizPart": 5
+    },
+    {
+      "id": 38,
+      "question": "¿Para qué se utiliza la tranilcipromina?",
+      "optionA": "a) Tratar infecciones bacterianas.",
+      "optionB": "b) Reducir la fiebre.",
+      "optionC": "c) Tratar infecciones fúngicas.",
+      "optionD": "d)  Tratar la depresión resistente.",
+      "correctOption": "d",
+      "quizPart": 5
+    }
+  ]
+}
