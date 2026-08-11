@@ -206,10 +206,11 @@ Registrar intentos del usuario: `id`, `user_id FK`, `score`, `total`, `date`.
 - [x] Proyecto Android Studio creado (AGP 9.2.1, Kotlin 2.2.10, Compose BOM 2026.02.01)
 - [x] Tema Material 3 (dark/light/dynamic) — `ui/theme`
 - [x] `MainActivity` con Scaffold base
-- [ ] Room + entidades + DAOs
-- [ ] Seed de datos (medications + questions)
-- [ ] Login / Registro (hash de contraseña, DataStore)
-- [ ] Pantalla home con navegación
+- [x] Room + entidades + DAOs
+- [x] Seed de datos (medications + questions)
+- [x] Navegación base (Navigation Compose: `Routes.kt` + `NavGraph.kt` con login/register/home)
+- [ ] Login / Registro (hash de contraseña, DataStore) — pantallas placeholder
+- [ ] Pantalla home con navegación funcional
 - [ ] Repaso por clasificación
 - [ ] Estudio random
 - [ ] Quiz (intro → preguntas → resultado)
