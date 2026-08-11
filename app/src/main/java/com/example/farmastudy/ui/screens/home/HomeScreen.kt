@@ -2,9 +2,14 @@ package com.example.farmastudy.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +19,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun HomeScreen(
+    username: String,
     onStudyByClassification: () -> Unit,
     onRandomStudy: () -> Unit,
     onQuiz: () -> Unit,
@@ -28,17 +34,24 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Menú principal")
-            Button(onClick = onStudyByClassification) {
+            Text(
+                text = "Hola, $username",
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Spacer(Modifier.height(32.dp))
+            Button(onClick = onStudyByClassification, modifier = Modifier.fillMaxWidth()) {
                 Text("Estudio por clasificación")
             }
-            Button(onClick = onRandomStudy) {
+            Spacer(Modifier.height(12.dp))
+            Button(onClick = onRandomStudy, modifier = Modifier.fillMaxWidth()) {
                 Text("Estudio random")
             }
-            Button(onClick = onQuiz) {
+            Spacer(Modifier.height(12.dp))
+            Button(onClick = onQuiz, modifier = Modifier.fillMaxWidth()) {
                 Text("Quiz general")
             }
-            Button(onClick = onLogout) {
+            Spacer(Modifier.height(32.dp))
+            OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth()) {
                 Text("Cerrar sesión")
             }
         }
