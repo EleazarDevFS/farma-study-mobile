@@ -13,7 +13,7 @@ class UserRepository(private val userDao: UserDao) {
         email: String,
         password: String
     ): AuthResult {
-        if (userDao.finByUsername(username) != null) {
+        if (userDao.findByUsername(username) != null) {
             return AuthResult(success = false, message = "Username ya existe, elige otro")
         }
         val hash = BCrypt.withDefaults().hashToString(12, password.toCharArray())
@@ -29,7 +29,7 @@ class UserRepository(private val userDao: UserDao) {
         return AuthResult(success = true)
     }
     suspend fun login(username: String, password: String): AuthResult {
-        val user = userDao.finByUsername(username)
+        val user = userDao.findByUsername(username)
             ?: return AuthResult(success = false, message = "Usuario no encontrado")
         val verifed = BCrypt.verifyer().verify(password.toCharArray(), user.password).verified
         return if (verifed){
