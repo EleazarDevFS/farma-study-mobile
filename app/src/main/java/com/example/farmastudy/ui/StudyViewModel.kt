@@ -61,8 +61,8 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
         medicationRepository.getByRoute(category)
 
     fun startRandomStudy() {
+        _randomState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            _randomState.update { it.copy(isLoading = true) }
             val medications = medicationRepository.getAll().first()
             val questions = questionDao.getAll().first()
             _randomState.value = RandomStudyUiState(

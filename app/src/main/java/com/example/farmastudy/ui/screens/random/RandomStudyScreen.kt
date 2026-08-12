@@ -50,7 +50,7 @@ fun RandomStudyScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when {
-                state.isLoading -> CircularProgressIndicator()
+                state.isLoading || state.items.isEmpty() -> CircularProgressIndicator()
 
                 state.finished -> {
                     Text("Sesión completada", style = MaterialTheme.typography.headlineSmall)

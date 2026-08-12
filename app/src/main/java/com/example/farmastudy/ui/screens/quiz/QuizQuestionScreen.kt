@@ -1,6 +1,5 @@
 package com.example.farmastudy.ui.screens.quiz
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -50,11 +49,7 @@ fun QuizQuestionScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (question == null) {
-                if (state.isLoading) {
-                    CircularProgressIndicator()
-                } else {
-                    Text("Pregunta no disponible")
-                }
+                CircularProgressIndicator()
                 return@Column
             }
 

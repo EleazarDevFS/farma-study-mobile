@@ -46,9 +46,9 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun startQuiz(quizPart: Int) {
+        attemptRecorded = false
+        _uiState.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-            attemptRecorded = false
-            _uiState.update { it.copy(isLoading = true) }
             val questions = if (quizPart == 0) {
                 questionDao.getAll().first()
             } else {
