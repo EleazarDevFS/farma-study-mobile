@@ -44,6 +44,7 @@ fun QuestionOptions(
             }
             Button(
                 onClick = { onSelectOption(letter) },
+                enabled = !answered,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = containerColor,
                     contentColor = contentColor
