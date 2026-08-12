@@ -1,252 +1,267 @@
-# FarmaStudy (mobile)
+# FarmaStudy
 
-Migración de la app de escritorio **AppFarmacología** (Java Swing, NetBeans) a una app móvil nativa en **Kotlin + Jetpack Compose** (Android Studio).
+App móvil del área de la salud para estudiantes de farmacología: repasa fármacos por clasificación (uso terapéutico, mecanismo de acción, estructura química, sistema orgánico), refuerza con flashcards aleatorias y mide tu avance con un quiz de 38 preguntas.
 
-> App de apoyo para estudiantes de farmacología: repaso por clasificación, estudio random y quiz de opción múltiple sobre fármacos.
+El proyecto es el resultado de la migración de la app de escritorio **AppFarmacología** (Java Swing, NetBeans) a una app nativa **Android en Kotlin + Jetpack Compose**.
+
+**La migración está completada.** Este README es la guía de desarrollo para contribuir y mejorar la app.
 
 ---
 
-## 1. Repositorios
+## 1. Estado del proyecto
 
-| App | Tecnología | Ruta / Repo |
+Las 5 fases de migración están completadas:
+
+| Fase | Alcance | Estado |
 |---|---|---|
-| AppFarmacología (origen) | Java Swing, NetBeans, JTattoo | `farmaapp/Farmapp/Algoritmo/AppFarmacologia` |
-| FarmaStudy (destino) | Kotlin, Jetpack Compose, Material 3 | [`EleazarDevFS/farma-study-mobile`](https://github.com/EleazarDevFS/farma-study-mobile) |
+| 1. Infraestructura | Room, seed de datos, navegación | Completada |
+| 2. Auth | Login + registro con BCrypt y DataStore | Completada |
+| 3. Estudio | Clasificación + estudio random | Completada |
+| 4. Quiz | Intro, preguntas y resultado | Completada |
+| 5. Pulido | Historial de intentos, tema de marca, icono, APK release | Completada |
 
-Branches del repo móvil: `main` (estable), `dev` (desarrollo).
+Funcionalidades actuales:
+
+- Login y registro con validaciones y contraseña cifrada (BCrypt).
+- Sesión persistida con DataStore.
+- Estudio por clasificación con listas expandibles.
+- Estudio random con deck mixto de flashcards y preguntas.
+- Quiz de opción múltiple con selector por partes (1-5) o modo completo.
+- Historial de intentos por usuario.
 
 ---
 
-## 2. Análisis de la app original
+## 2. Stack tecnológico
 
-App de escritorio (750x547 px) con panel principal `FarmaFrame` que intercambia paneles (`mostrarPanel()`) simulando una navegación por "pantallas".
-
-### 2.1 Funcionalidades
-
-| Feature | Clases Java |
+| Tecnología | Detalle |
 |---|---|
-| Login con usuarios | `Sesion.java` |
-| Registro de usuario | `Registro.java` |
-| Menú principal | `Inicio.java` |
-| Repaso por clasificación | `MetClasificacion.java` |
-| Repaso random | `MetRandom.java` |
-| Quiz general (38 preguntas) | `Quiz.java`, `QuizP1..QuizP5` |
-| Resultados del quiz | `Respuestas.java`, `Resp1p1.java`, `Resp1p2.java` |
-| Lógica / datos | `Logic.java`, `FarmaFrame.java` |
+| Lenguaje | Kotlin 2.2.x |
+| UI | Jetpack Compose + Material 3 (dark/light/dynamic color) |
+| Navegación | Navigation Compose |
+| Persistencia | Room 2.7.x (SQLite) |
+| Preferencias de sesión | DataStore Preferences |
+| Hash de contraseñas | BCrypt (at.favre.lib) |
+| DI / Build | Gradle con version catalog (`gradle/libs.versions.toml`), AGP 9.2.1, KSP |
 
-### 2.2 Flujo de la app
-
-```
-Sesion (login) ──> Registro (crear cuenta)
-      │
-      v
-Inicio (menú principal)
-   ├── Estudio por clasificación (Uso terapéutico, Mecanismo de acción, Estructura química, Sistema orgánico)
-   ├── Estudio random (elige categoría y fármaco al azar)
-   └── Quiz general (38 preguntas, selector por partes o modo completo) ──> Resultados
-```
-
-### 2.3 Datos en la app original
-
-| Archivo | Contenido | Formato |
-|---|---|---|
-| `Fterapeutico.txt` | 38 fármacos por uso terapéutico | `nombre|descripción` |
-| `Fmecanismo.txt` | 15 fármacos por mecanismo de acción | `nombre|descripción` |
-| `Fquimica.txt` | 6 fármacos por estructura química | `nombre|descripción` |
-| `Forganico.txt` | 12 fármacos por sistema orgánico | `nombre|descripción` |
-| `Users.txt` | Usuarios registrados | `usuario,contraseña` (CSV, sin cifrar) |
-| `Logic.java` | 38 respuestas del quiz (R1..R38) | hardcodeadas |
-
-**Nota de seguridad:** el login usa `iniciarSesion()` leyendo `Users.txt` con la contraseña en texto plano. En la migración esto se reemplaza por SQLite + cifrado.
+- minSdk 24, target/compile SDK 36.
+- Room en versión 2 con migración 1→2 (ver sección 6).
 
 ---
 
-## 3. Stack de la migración
+## 3. Requisitos
 
-| Aspecto | Original | Migración |
-|---|---|---|
-| Lenguaje | Java | Kotlin 2.2.x |
-| UI | Swing (`.form` de NetBeans) | Jetpack Compose + Material 3 |
-| Navegación | `FarmaFrame.mostrarPanel()` | Navigation Compose (rutas) |
-| Persistencia | Archivos `.txt` en el directorio de trabajo | Room (SQLite) |
-| Preferencias de sesión | Variables `static` | DataStore (vía shared prefs) |
-| Diálogos | `JOptionPane` | Snackbars / AlertDialog / pantallas |
-| Entrada de texto | `JOptionPane.showInputDialog` | `TextField` en pantalla dedicada |
-| Look & feel | JTattoo (Luna/Aluminium) | Material 3 (dark/light/dynamic color) |
+- Android Studio (última versión estable).
+- JDK 17+ (Android Studio incluye el JDK propio `jbr-21`).
+- Android SDK 36 (configurado en `local.properties` con `sdk.dir`).
+- Emulador o dispositivo físico con API 24 o superior.
 
-Min SDK 24 · Target/compile SDK 36 · Gradle con version catalog (`gradle/libs.versions.toml`) · AGP 9.2.1.
+Nota: `local.properties` no se versiona (contiene rutas locales del SDK).
 
 ---
 
-## 4. Arquitectura objetivo
+## 4. Setup y primeros pasos
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/EleazarDevFS/farma-study-mobile.git
+cd farma-study-mobile
+
+# 2. Abrir en Android Studio y dejar que sincronice Gradle
+#    (o compilar desde terminal)
+./gradlew assembleDebug
+```
+
+Comandos útiles:
+
+| Comando | Descripción |
+|---|---|
+| `./gradlew assembleDebug` | Compila el APK de debug |
+| `./gradlew testDebugUnitTest` | Ejecuta los tests unitarios |
+| `./gradlew assembleRelease` | Genera el APK release (unsigned por defecto) |
+| `./gradlew installDebug` | Instala en un dispositivo/emulador conectado |
+
+En Windows usa `gradlew.bat` en lugar de `./gradlew`.
+
+La BD se crea y rellena automáticamente en el primer arranque desde los assets
+(`app/src/main/assets/medications.json` y `questions.json`).
+
+---
+
+## 5. Estructura del proyecto
 
 ```
 app/src/main/java/com/example/farmastudy/
-├── MainActivity.kt              # Single Activity, setContent + NavHost
+├── MainActivity.kt              # Single Activity: tema + Scaffold + NavGraph
+├── FarmaApp.kt                  # Application: instancia Room + seed en primer arranque
 ├── data/
+│   ├── datasource/SeedData.kt   # Podado de la BD desde los JSON de assets
+│   ├── domain/
+│   │   ├── model/               # Models de dominio (AuthResult, User)
+│   │   └── usecase/Validators.kt # Validaciones de registro
 │   ├── local/
-│   │   ├── FarmaDatabase.kt     # Room database
-│   │   ├── dao/                 # UserDao, MedicationDao, QuestionDao
-│   │   └── entity/              # UserEntity, MedicationEntity, QuestionEntity
-│   ├── repository/              # UserRepository, MedicationRepository
-│   └── datasource/              # SeedData.kt (importa los .txt originales)
-├── domain/
-│   ├── model/                   # User, Medication, Question, Answer, QuizResult
-│   └── usecase/                 # ValidateUserUseCase, RegisterUserUseCase, RandomDrugUseCase
-├── ui/
-│   ├── navigation/              # Routes.kt, NavGraph.kt
-│   ├── theme/                   # Color.kt, Type.kt, Theme.kt (ya existe)
-│   ├── screens/
-│   │   ├── login/               # LoginScreen (Sesion)
-│   │   ├── register/            # RegisterScreen (Registro)
-│   │   ├── home/                # HomeScreen (Inicio)
-│   │   ├── classification/      # ClassificationScreen + StudyByCategoryScreen (MetClasificacion)
-│   │   ├── random/              # RandomStudyScreen (MetRandom)
-│   │   ├── quiz/                # QuizIntroScreen, QuizQuestionScreen, QuizResultScreen
-│   │   └── components/          # Widgets reutilizables (QuestionCard, OptionRow, ...)
-│   └── viewmodel/               # AuthViewModel, QuizViewModel, StudyViewModel
+│   │   ├── FarmaDatabase.kt     # Room database + migraciones
+│   │   ├── SessionStore.kt      # DataStore (usuario logueado)
+│   │   ├── dao/                 # UserDao, MedicationDao, QuestionDao, QuizAttemptDao
+│   │   └── entity/              # UserEntity, MedicationEntity, QuestionEntity, QuizAttemptEntity
+│   └── repository/              # UserRepository, MedicationRepository, ClassificationCategory
+└── ui/
+    ├── AuthViewModel.kt         # Login/registro/sesión
+    ├── QuizViewModel.kt         # Estado del quiz + historial
+    ├── StudyViewModel.kt        # Clasificación + estudio random
+    ├── components/              # Widgets compartidos (QuestionOptions)
+    ├── navigation/              # Routes.kt + NavGraph.kt
+    ├── screens/
+    │   ├── login/               # LoginScreen
+    │   ├── register/            # RegisterScreen
+    │   ├── home/                # HomeScreen (menú principal)
+    │   ├── classification/      # ClassificationScreen
+    │   ├── study/               # StudyByCategoryScreen
+    │   ├── random/              # RandomStudyScreen
+    │   ├── quiz/                # QuizIntroScreen, QuizQuestionScreen, QuizResultScreen
+    │   └── history/             # QuizHistoryScreen
+    └── theme/                   # Color.kt, Theme.kt, Type.kt
+
+app/src/main/assets/             # medications.json (67 fármacos), questions.json (38 preguntas)
+app/src/test/                    # Tests unitarios (JVM)
+app/src/androidTest/             # Tests instrumentados
 ```
 
----
+Patrón de arquitectura aplicado:
 
-## 5. Diseño de la BD (Room)
-
-### Tabla `users`
-| Columna | Tipo | Notas |
-|---|---|---|
-| `id` | INTEGER PK autoincrement | |
-| `username` | TEXT UNIQUE | El app original genera: `(nombre + edad + pass[4..6]).toUpperCase()` |
-| `password` | TEXT | Hash (BCrypt/KeyStore) en lugar de texto plano |
-| `email` | TEXT | |
-| `age` | INTEGER | |
-| `gender` | TEXT | |
-
-### Tabla `medications`
-| Columna | Tipo | Notas |
-|---|---|---|
-| `id` | INTEGER PK | |
-| `name` | TEXT | nombre del fármaco (clave) |
-| `therapeutic_use` | TEXT NULL | descripción del txt de uso terapéutico |
-| `mechanism` | TEXT NULL | descripción de mecanismo de acción |
-| `chemical_structure` | TEXT NULL | descripción de estructura química |
-| `organic_system` | TEXT NULL | descripción de sistema orgánico |
-
-Modelo de datos migrado del `HashMap` de `Logic.java`: 4 campos descriptivos por fármaco según la clasificación, en vez de 4 mapas separados.
-
-### Tabla `questions`
-| Columna | Tipo | Notas |
-|---|---|---|
-| `id` | INTEGER PK | 1..38 (G1..G38 en Swing) |
-| `question` | TEXT | pregunta del quiz |
-| `option_a` ... `option_d` | TEXT | opciones |
-| `correct_option` | TEXT | `a`..`d` (equivale a `R1..R38` de `Logic.java`) |
-| `quiz_part` | INTEGER | 1..5 (QuizP1..QuizP5 originales) |
-
-### Tabla `quiz_attempts`
-Registrar intentos del usuario: `id`, `username`, `quiz_part`, `score`, `total`, `date (epoch ms)`. Creada en Room v2 con migración `MIGRATION_1_2` (no destructiva). ✅ implementada
+- **MVVM**: cada pantalla principal tiene su ViewModel (`AndroidViewModel`) que accede a
+  los DAOs vía `(application as FarmaApp).database`. No hay framework de DI; los
+  repositorios se instancian en los ViewModels.
+- **Navegación por rutas**: las rutas se centralizan en `Routes.kt`; los destinos se
+  registran en `NavGraph.kt` con `composable(...)`.
+- **Estado en pantalla**: las pantallas reciben `state` + callbacks, siguiendo el patrón
+  sin estado en los componentes.
 
 ---
 
-## 6. Mapeo de pantallas Swing → Compose
+## 6. Base de datos (Room)
 
-| Swing | Compose (ruta) | Descripción |
-|---|---|---|
-| `Sesion.java` | `login` | Login: usuario + contraseña |
-| `Registro.java` | `register` | Registro con validaciones (nombre, edad, email, contraseña) |
-| `Inicio.java` | `home` | Menú con 3 botones: clasificación, random, quiz + cerrar sesión |
-| `MetClasificacion.java` | `classification` | Elegir categoría (terapéutico/mecanismo/química/orgánico) |
-| `MetRandom.java` | `random_study` | Deck mixto: flashcards de fármacos + preguntas de opción múltiple |
-| `Quiz.java` | `quiz_intro/{quizPart}` | Intro: selector de modo completo o parte 1-5 |
-| `QuizP1..QuizP5` | `quiz_question/{quizPart}/{questionIndex}` (una sola pantalla reutilizable) | 38 preguntas, 1 por vista con indicador de progreso |
-| `Respuestas.java`, `Resp1p1.java`, `Resp1p2.java` | `quiz_result` | Resultado por pregunta con la respuesta correcta |
-| `Logic.java` (sesión) | `quiz_history` | Historial de intentos guardado en `quiz_attempts` |
-| `Logic.haceT/M/Q/O()` (JOptionPane) | `study_by_category` | Repaso por clasificación con `TextField` para escribir el fármaco |
-| `Logic.rand()` | (dentro de `random_study`) | Categoría + fármaco aleatorio |
+La BD actual está en la **versión 2** con la tabla `quiz_attempts`.
 
-**Mejora clave de la migración:** en Swing las 38 preguntas eran 5 paneles con 7-9 preguntas cada uno. En Compose será **una sola pantalla parametrizada** (`QuizQuestionScreen(questionIndex)`) con navegación por índice.
+Reglas imprescindibles:
+
+1. Cualquier cambio de esquema (nueva entidad, columna, índice) debe **subir la versión**
+   en `@Database(...)`.
+2. Toda subida de versión debe incluir una **migración** en `FarmaDatabase.kt`
+   (objeto `Migration`) registrada con `addMigrations(...)`. Si no se hace, Room valida el
+   esquema y la app crashea al arrancar (lección aprendida: el índice único de `users`
+   se agregó sin migración y rompió instalaciones existentes).
+3. Las migraciones deben ser no destructivas cuando haya datos que conservar.
+
+Las tablas actuales: `users`, `medications`, `questions`, `quiz_attempts`.
 
 ---
 
-## 7. Mapeo de lógica Java → Kotlin
+## 7. Flujo de trabajo con GitFlow
 
-| Java | Kotlin | Notas |
-|---|---|---|
-| `Logic.InicializaListas()` | `SeedData.seed(db)` | Poblar Room desde recursos (JSON/CSV en `assets/`) |
-| `Logic.iniciaT/M/Q/O()` | `MedicationRepository` + seed | Los 4 mapas pasan a la tabla `medications` |
-| `Logic.haceT/M/Q/O()` | `StudyViewModel` | Repaso por clasificación |
-| `Logic.rand()` / `haceRan()` | `RandomDrugUseCase` | Elección aleatoria de categoría y fármaco |
-| `Logic.getStrg()`, `Seleccion()` | `remember { mutableStateOf }` | Estado de la opción seleccionada |
-| `Logic.valida()/validaNew()` | `TextValidator` / `regex` | Reutilizar como validación de inputs |
-| `Registro.registrarUsuario()` | `UserRepository.register()` | Room + hash de contraseña |
-| `Registro.iniciarSesion()` | `UserRepository.login()` | + `AuthViewModel` con sesión en DataStore |
-| `Registro.checkRepeat()` | `UserDao.findByUsername()` | Evitar duplicados (UNIQUE) |
-| `Registro.validPass()` | `Validators.validPass()` | Mínimo 8 caracteres, coincidencia |
-| `Registro.isMailCorrect()` | `Validators.isMailCorrect()` | Regla de caracteres antes del `@` |
-| `FarmaFrame.mostrarPanel(p)` | `NavController.navigate(route)` | Navegación |
-| `Inicio.cleanSelect()` | estado del `QuizViewModel` | Reset de respuestas al reiniciar quiz |
+El repositorio usa **GitFlow**, con dos ramas principales:
 
----
+| Rama | Uso |
+|---|---|
+| `main` | Producción / versiones estables. Solo se mergea desde `release` o `develop` ya validado. |
+| `dev` | Integración continua. Todo el trabajo en curso se mergea aquí. |
 
-## 8. Migración de datos (una sola vez)
+### 7.1 Ramas de trabajo
 
-1. `Fterapeutico.txt`, `Fmecanismo.txt`, `Fquimica.txt`, `Forganico.txt` se convierten a un archivo estructurado (`assets/medications.json` o SQL seed) con el formato `clave|descripción` → columnas de la tabla `medications`.
-2. Las 38 preguntas y respuestas (`QuizP*.java` + `R1..R38`) se extraen a `assets/questions.json` (5 bloques de 7-9 preguntas).
-3. `Users.txt` **no se migra** (contraseñas en texto plano): los usuarios existentes deben re-registrarse con el nuevo hash.
-4. La app rellena la BD en el primer arranque (`RoomDatabase.Callback.onCreate` / `seedIfEmpty`).
+- `feature/<nombre>` — nuevas funcionalidades (ej. `feature/quiz-timer`).
+- `fix/<nombre>` — corrección de bugs (ej. `fix/login-crash`).
+- `docs/<nombre>` — documentación.
+- `refactor/<nombre>` — mejoras de código sin cambio de comportamiento.
+- `release/<version>` — preparación de una versión (opcional para esta app).
 
-### Preguntas del quiz (inventario)
-- QuizP1: G1–G7 (7) · QuizP2: G8–G14 (7) · QuizP3: G15–G21 (7) · QuizP4: G22–G29 (8) · QuizP5: G30–G38 (9) → **38 preguntas totales**.
+### 7.2 Flujo de una feature
 
-### Fármacos (inventario)
-- Uso terapéutico: 38 · Mecanismo de acción: 15 · Estructura química: 6 · Sistema orgánico: 12.
-
----
-
-## 9. Estado actual de la migración
-
-### Fases completadas
-- [x] **Fase 1 — Infraestructura:** proyecto Android Studio (AGP 9.2.1, Kotlin 2.2.10, Compose BOM 2026.02.01), tema Material 3, `MainActivity`, Room + entidades + DAOs, seed de datos (`assets/*.json`) y navegación base (`Routes.kt` + `NavGraph.kt`)
-- [x] **Fase 2 — Auth:** login + registro completos (BCrypt, sesión en DataStore via `SessionStore`, validaciones en `Validators`)
-- [x] **Fase 3 — Estudio:** clasificación y random
-- [x] **Fase 4 — Quiz:** flujo completo
-- [x] **Fase 5 — Pulido:** historial de intentos, tema con identidad de marca (verde farmacia), icono adaptativo, APK release
-
-### Checklist por feature
-- [x] Proyecto Android Studio creado (AGP 9.2.1, Kotlin 2.2.10, Compose BOM 2026.02.01)
-- [x] Tema Material 3 (dark/light/dynamic) — `ui/theme`
-- [x] `MainActivity` con Scaffold base
-- [x] Room + entidades + DAOs
-- [x] Seed de datos (medications + questions)
-- [x] Navegación base (Navigation Compose: `Routes.kt` + `NavGraph.kt` con login/register/home)
-- [x] Login / Registro (BCrypt + DataStore) — `LoginScreen.kt`, `RegisterScreen.kt`, `AuthViewModel.kt`
-- [x] Pantalla home con navegación funcional — `HomeScreen.kt` (3 modos + logout)
-- [x] Repaso por clasificación — `ClassificationScreen.kt` + `StudyByCategoryScreen.kt` (lista expandible por categoría)
-- [x] Estudio random — `RandomStudyScreen.kt` (deck mixto: 15 flashcards + 38 preguntas)
-- [x] Quiz (intro → preguntas → resultado) — `QuizIntro/QuizQuestion/QuizResultScreen.kt` con selector por partes (1-5) y modo completo (38 preguntas)
-- [x] Historial de intentos — `quiz_attempts` (Room v2 + migración 1→2) y `QuizHistoryScreen.kt`
-- [x] Tema de marca — verde farmacia en `ui/theme/Color.kt` + icono adaptativo (cruz de farmacia)
-- [x] APK release generado — `app/build/outputs/apk/release/app-release-unsigned.apk` (requiere firmar para distribuir)
-
----
-
-## 10. Build y ejecución
-
-```bash
-# Linux / macOS
-./gradlew assembleDebug
-
-# Windows
-gradlew.bat assembleDebug
+```text
+1. Update de dev:      git checkout dev && git pull
+2. Rama de trabajo:    git checkout -b feature/<nombre> dev
+3. Commits cortos:     git add <archivos> && git commit -m "tipo: asunto"
+4. Integrar dev:       git checkout dev && git pull && git checkout feature/<nombre>
+                       git rebase dev
+5. Subir la rama:      git push -u origin feature/<nombre>
+6. Pull request:       feature/<nombre> -> dev, con descripción del cambio
+7. Revisión y merge:   revisar diff, corregir comentarios (commits de fix),
+                       squash o merge a dev (preferir merge para conservar historial)
 ```
 
-Requisitos: Android Studio (última versión estable), JDK 17+, SDK 36.
+### 7.3 Convenciones de commits
+
+Mensajes cortos en español/inglés con prefijo de tipo (style: Conventional Commits):
+
+| Prefijo | Uso |
+|---|---|
+| `feat:` | Nueva funcionalidad |
+| `fix:` | Corrección de bug |
+| `refact:` | Refactor sin cambio de comportamiento |
+| `test:` | Tests |
+| `docs:` | Documentación |
+| `build:` | Dependencias / configuración de build |
+| `style:` | Tema visual / recursos |
+
+Reglas:
+
+- Commits **atómicos y cortos**: un commit = un cambio lógico. Evita commits con muchos
+  archivos no relacionados.
+- El asunto no debe superar ~50 caracteres; usa el cuerpo para el detalle necesario.
+- No subir secretos ni `local.properties`.
 
 ---
 
-## 11. Roadmap
+## 8. Cómo añadir una nueva pantalla o feature
 
-1. **Fase 1 — Infraestructura:** Room, seed de datos, navegación. ✅
-2. **Fase 2 — Auth:** login + registro con cifrado. ✅
-3. **Fase 3 — Estudio:** clasificación + random. ✅
-4. **Fase 4 — Quiz:** flujo completo con resultados. ✅
-5. **Fase 5 — Pulido:** historial de intentos ✅, tema personalizado ✅, icono ✅, APK release ✅ (firmado: pendiente, se requiere keystore propio)
+Sigue el patrón existente:
+
+1. **Ruta**: añade la constante y el helper en `ui/navigation/Routes.kt`
+   (usa `{argumentos}` si la pantalla recibe parámetros).
+2. **Capa de datos** (si aplica): entity + DAO en `data/local/` y, si hace falta,
+   repo en `data/repository/`. Recuerda las reglas de migración de la sección 6.
+3. **ViewModel**: en `ui/`, extiende `AndroidViewModel`, obtén los DAOs con
+   `(application as FarmaApp).database.<dao>()` y expón un `StateFlow<UiState>`.
+4. **Pantalla**: crea `ui/screens/<feature>/<Nombre>Screen.kt` con el patrón
+   `state + callbacks`; usa componentes reutilizables de `ui/components/`.
+5. **Navegación**: registra el destino en `NavGraph.kt` (con `navArgument` si tiene
+   argumentos) y enlaza los callbacks.
+6. **Tests**: si hay lógica pura (helpers, cálculo de scores, decks), extrae funciones
+   top-level y añade un test en `app/src/test/`.
+7. **Verificación local**: `./gradlew testDebugUnitTest assembleDebug` antes del PR.
+
+---
+
+## 9. Testing
+
+- **Unit tests (JVM)**: en `app/src/test/java/com/example/farmastudy/`. Cubren
+  validadores, construcción del deck random y formateo del historial.
+  Ejecutar con `./gradlew testDebugUnitTest`.
+- **Instrumented**: en `app/src/androidTest/` (actualmente solo el placeholder de
+  contexto). Plan útil: tests de Room (DAOs) y de navegación Compose.
+
+Mantén la suite en verde antes de abrir o mergear un PR.
+
+---
+
+## 10. Próximas mejoras sugeridas
+
+Idea board de partida para continuar iterando:
+
+- Pantalla de detalle de fármaco (más contenido por medicamento).
+- Selección de categoría en el estudio random.
+- Feedback de respuestas correctas/incorrectas por pregunta en el historial.
+- Tests instrumentados de Room y Compose.
+- Firma del APK release (se necesita un keystore propio).
+- Exportación de resultados o vista de progreso por parte del quiz.
+- Tema personalizado con la identidad visual de la app original (JTattoo).
+
+---
+
+## 11. Referencia de la migración (resumen)
+
+- **Origen**: AppFarmacología (Java Swing, NetBeans, JTattoo).
+- **Destino**: FarmaStudy (Kotlin, Jetpack Compose, Material 3).
+- Los datos se migraron de archivos `.txt` a `assets/*.json` y se cargan en Room al
+  primer arranque.
+- Las 38 preguntas del quiz (5 partes) se modelaron en una única tabla `questions`
+  con `quiz_part`; la pantalla del quiz es reutilizable por índice y parte.
+- El login original en texto plano se sustituyó por hash BCrypt.
