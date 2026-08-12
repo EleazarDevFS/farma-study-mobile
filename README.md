@@ -43,7 +43,7 @@ Sesion (login) ──> Registro (crear cuenta)
 Inicio (menú principal)
    ├── Estudio por clasificación (Uso terapéutico, Mecanismo de acción, Estructura química, Sistema orgánico)
    ├── Estudio random (elige categoría y fármaco al azar)
-   └── Quiz general (38 preguntas en 5 páginas) ──> Resultados (3 pantallas)
+   └── Quiz general (38 preguntas, selector por partes o modo completo) ──> Resultados
 ```
 
 ### 2.3 Datos en la app original
@@ -88,7 +88,7 @@ app/src/main/java/com/example/farmastudy/
 │   │   ├── FarmaDatabase.kt     # Room database
 │   │   ├── dao/                 # UserDao, MedicationDao, QuestionDao
 │   │   └── entity/              # UserEntity, MedicationEntity, QuestionEntity
-│   ├── repository/              # UserRepository, MedicationRepository, QuizRepository
+│   ├── repository/              # UserRepository, MedicationRepository
 │   └── datasource/              # SeedData.kt (importa los .txt originales)
 ├── domain/
 │   ├── model/                   # User, Medication, Question, Answer, QuizResult
@@ -155,9 +155,9 @@ Registrar intentos del usuario: `id`, `user_id FK`, `score`, `total`, `date`.
 | `Registro.java` | `register` | Registro con validaciones (nombre, edad, email, contraseña) |
 | `Inicio.java` | `home` | Menú con 3 botones: clasificación, random, quiz + cerrar sesión |
 | `MetClasificacion.java` | `classification` | Elegir categoría (terapéutico/mecanismo/química/orgánico) |
-| `MetRandom.java` | `random_study` | Botón "mostrar fármaco random" + input de respuesta |
-| `Quiz.java` | `quiz_intro` | Intro del quiz |
-| `QuizP1..QuizP5` | `quiz_question` (una sola pantalla reutilizable) | 38 preguntas, 1 por vista con indicador de progreso |
+| `MetRandom.java` | `random_study` | Deck mixto: flashcards de fármacos + preguntas de opción múltiple |
+| `Quiz.java` | `quiz_intro/{quizPart}` | Intro: selector de modo completo o parte 1-5 |
+| `QuizP1..QuizP5` | `quiz_question/{quizPart}/{questionIndex}` (una sola pantalla reutilizable) | 38 preguntas, 1 por vista con indicador de progreso |
 | `Respuestas.java`, `Resp1p1.java`, `Resp1p2.java` | `quiz_result` | Resultado por pregunta con la respuesta correcta |
 | `Logic.haceT/M/Q/O()` (JOptionPane) | `study_by_category` | Repaso por clasificación con `TextField` para escribir el fármaco |
 | `Logic.rand()` | (dentro de `random_study`) | Categoría + fármaco aleatorio |
@@ -203,18 +203,26 @@ Registrar intentos del usuario: `id`, `user_id FK`, `score`, `total`, `date`.
 
 ## 9. Estado actual de la migración
 
+### Fases completadas
+- [x] **Fase 1 — Infraestructura:** proyecto Android Studio (AGP 9.2.1, Kotlin 2.2.10, Compose BOM 2026.02.01), tema Material 3, `MainActivity`, Room + entidades + DAOs, seed de datos (`assets/*.json`) y navegación base (`Routes.kt` + `NavGraph.kt`)
+- [x] **Fase 2 — Auth:** login + registro completos (BCrypt, sesión en DataStore via `SessionStore`, validaciones en `Validators`)
+- [x] **Fase 3 — Estudio:** clasificación y random
+- [x] **Fase 4 — Quiz:** flujo completo
+
+### Checklist por feature
 - [x] Proyecto Android Studio creado (AGP 9.2.1, Kotlin 2.2.10, Compose BOM 2026.02.01)
 - [x] Tema Material 3 (dark/light/dynamic) — `ui/theme`
 - [x] `MainActivity` con Scaffold base
 - [x] Room + entidades + DAOs
 - [x] Seed de datos (medications + questions)
 - [x] Navegación base (Navigation Compose: `Routes.kt` + `NavGraph.kt` con login/register/home)
-- [ ] Login / Registro (hash de contraseña, DataStore) — pantallas placeholder
-- [ ] Pantalla home con navegación funcional
-- [ ] Repaso por clasificación
-- [ ] Estudio random
-- [ ] Quiz (intro → preguntas → resultado)
+- [x] Login / Registro (BCrypt + DataStore) — `LoginScreen.kt`, `RegisterScreen.kt`, `AuthViewModel.kt`
+- [x] Pantalla home con navegación funcional — `HomeScreen.kt` (3 modos + logout)
+- [x] Repaso por clasificación — `ClassificationScreen.kt` + `StudyByCategoryScreen.kt` (lista expandible por categoría)
+- [x] Estudio random — `RandomStudyScreen.kt` (deck mixto: 15 flashcards + 38 preguntas)
+- [x] Quiz (intro → preguntas → resultado) — `QuizIntro/QuizQuestion/QuizResultScreen.kt` con selector por partes (1-5) y modo completo (38 preguntas)
 - [ ] Iconos y recursos finales
+- [ ] **Fase 5 — Pulido:** historial de intentos, tema personalizado con la identidad de la app original, APK release
 
 ---
 
@@ -234,8 +242,8 @@ Requisitos: Android Studio (última versión estable), JDK 17+, SDK 36.
 
 ## 11. Roadmap
 
-1. **Fase 1 — Infraestructura:** Room, seed de datos, navegación.
-2. **Fase 2 — Auth:** login + registro con cifrado.
-3. **Fase 3 — Estudio:** clasificación + random.
-4. **Fase 4 — Quiz:** flujo completo con resultados.
-5. **Fase 5 — Pulido:** historial de intentos, tema personalizado con la identidad de la app original, APK release.
+1. **Fase 1 — Infraestructura:** Room, seed de datos, navegación. ✅
+2. **Fase 2 — Auth:** login + registro con cifrado. ✅
+3. **Fase 3 — Estudio:** clasificación + random. ✅
+4. **Fase 4 — Quiz:** flujo completo con resultados. ✅
+5. **Fase 5 — Pulido:** historial de intentos, tema personalizado con la identidad de la app original, APK release. ⏳ pendiente
