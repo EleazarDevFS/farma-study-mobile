@@ -40,6 +40,9 @@ abstract class FarmaDatabase : RoomDatabase() {
                         "`total` INTEGER NOT NULL, " +
                         "`date` INTEGER NOT NULL)"
                 )
+                db.execSQL(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS `index_users_username` ON `users` (`username`)"
+                )
             }
         }
 
