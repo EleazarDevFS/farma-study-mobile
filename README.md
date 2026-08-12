@@ -142,8 +142,8 @@ Modelo de datos migrado del `HashMap` de `Logic.java`: 4 campos descriptivos por
 | `correct_option` | TEXT | `a`..`d` (equivale a `R1..R38` de `Logic.java`) |
 | `quiz_part` | INTEGER | 1..5 (QuizP1..QuizP5 originales) |
 
-### Tabla `quiz_attempts` (nuevo, opcional)
-Registrar intentos del usuario: `id`, `user_id FK`, `score`, `total`, `date`.
+### Tabla `quiz_attempts`
+Registrar intentos del usuario: `id`, `username`, `quiz_part`, `score`, `total`, `date (epoch ms)`. Creada en Room v2 con migración `MIGRATION_1_2` (no destructiva). ✅ implementada
 
 ---
 
@@ -159,6 +159,7 @@ Registrar intentos del usuario: `id`, `user_id FK`, `score`, `total`, `date`.
 | `Quiz.java` | `quiz_intro/{quizPart}` | Intro: selector de modo completo o parte 1-5 |
 | `QuizP1..QuizP5` | `quiz_question/{quizPart}/{questionIndex}` (una sola pantalla reutilizable) | 38 preguntas, 1 por vista con indicador de progreso |
 | `Respuestas.java`, `Resp1p1.java`, `Resp1p2.java` | `quiz_result` | Resultado por pregunta con la respuesta correcta |
+| `Logic.java` (sesión) | `quiz_history` | Historial de intentos guardado en `quiz_attempts` |
 | `Logic.haceT/M/Q/O()` (JOptionPane) | `study_by_category` | Repaso por clasificación con `TextField` para escribir el fármaco |
 | `Logic.rand()` | (dentro de `random_study`) | Categoría + fármaco aleatorio |
 
@@ -208,6 +209,7 @@ Registrar intentos del usuario: `id`, `user_id FK`, `score`, `total`, `date`.
 - [x] **Fase 2 — Auth:** login + registro completos (BCrypt, sesión en DataStore via `SessionStore`, validaciones en `Validators`)
 - [x] **Fase 3 — Estudio:** clasificación y random
 - [x] **Fase 4 — Quiz:** flujo completo
+- [x] **Fase 5 — Pulido:** historial de intentos, tema con identidad de marca (verde farmacia), icono adaptativo, APK release
 
 ### Checklist por feature
 - [x] Proyecto Android Studio creado (AGP 9.2.1, Kotlin 2.2.10, Compose BOM 2026.02.01)
@@ -221,8 +223,9 @@ Registrar intentos del usuario: `id`, `user_id FK`, `score`, `total`, `date`.
 - [x] Repaso por clasificación — `ClassificationScreen.kt` + `StudyByCategoryScreen.kt` (lista expandible por categoría)
 - [x] Estudio random — `RandomStudyScreen.kt` (deck mixto: 15 flashcards + 38 preguntas)
 - [x] Quiz (intro → preguntas → resultado) — `QuizIntro/QuizQuestion/QuizResultScreen.kt` con selector por partes (1-5) y modo completo (38 preguntas)
-- [ ] Iconos y recursos finales
-- [ ] **Fase 5 — Pulido:** historial de intentos, tema personalizado con la identidad de la app original, APK release
+- [x] Historial de intentos — `quiz_attempts` (Room v2 + migración 1→2) y `QuizHistoryScreen.kt`
+- [x] Tema de marca — verde farmacia en `ui/theme/Color.kt` + icono adaptativo (cruz de farmacia)
+- [x] APK release generado — `app/build/outputs/apk/release/app-release-unsigned.apk` (requiere firmar para distribuir)
 
 ---
 
@@ -246,4 +249,4 @@ Requisitos: Android Studio (última versión estable), JDK 17+, SDK 36.
 2. **Fase 2 — Auth:** login + registro con cifrado. ✅
 3. **Fase 3 — Estudio:** clasificación + random. ✅
 4. **Fase 4 — Quiz:** flujo completo con resultados. ✅
-5. **Fase 5 — Pulido:** historial de intentos, tema personalizado con la identidad de la app original, APK release. ⏳ pendiente
+5. **Fase 5 — Pulido:** historial de intentos ✅, tema personalizado ✅, icono ✅, APK release ✅ (firmado: pendiente, se requiere keystore propio)
