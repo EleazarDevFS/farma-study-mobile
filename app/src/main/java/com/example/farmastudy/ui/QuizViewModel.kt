@@ -88,9 +88,9 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
     fun recordAttempt(username: String) {
         val state = _uiState.value
-        if (attemptRecorded || !state.finished) return
-        attemptRecorded = true
+        if (attemptRecorded || state.questions.isEmpty() || !state.isLastQuestion) return
         if (username.isBlank()) return
+        attemptRecorded = true
         viewModelScope.launch {
             quizAttemptDao.insert(
                 QuizAttemptEntity(
