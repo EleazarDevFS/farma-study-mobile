@@ -15,6 +15,7 @@ import com.example.farmastudy.ui.AuthViewModel
 import com.example.farmastudy.ui.QuizViewModel
 import com.example.farmastudy.ui.StudyViewModel
 import com.example.farmastudy.ui.screens.classification.ClassificationScreen
+import com.example.farmastudy.ui.screens.history.QuizHistoryScreen
 import com.example.farmastudy.ui.screens.home.HomeScreen
 import com.example.farmastudy.ui.screens.login.LoginScreen
 import com.example.farmastudy.ui.screens.quiz.QuizIntroScreen
@@ -101,7 +102,15 @@ private fun HomeNavGraph(
                 onStudyByClassification = { navController.navigate(Routes.CLASSIFICATION) },
                 onRandomStudy = { navController.navigate(Routes.RANDOM_STUDY) },
                 onQuiz = { navController.navigate(Routes.quizIntro(0)) },
+                onHistory = { navController.navigate(Routes.QUIZ_HISTORY) },
                 onLogout = authViewModel::logout
+            )
+        }
+        composable(Routes.QUIZ_HISTORY) {
+            QuizHistoryScreen(
+                username = username,
+                viewModel = quizViewModel,
+                onBack = { navController.popBackStack() }
             )
         }
         composable(Routes.CLASSIFICATION) {
@@ -154,6 +163,7 @@ private fun HomeNavGraph(
                 viewModel = quizViewModel,
                 onNext = { nextIndex ->
                     if (nextIndex >= quizViewModel.uiState.value.questions.size) {
+                        quizViewModel.recordAttempt(username)
                         navController.navigate(Routes.QUIZ_RESULT) {
                             popUpTo(Routes.QUIZ_QUESTION) { inclusive = true }
                         }

@@ -9,6 +9,7 @@ object Routes {
     const val QUIZ_INTRO = "quiz_intro/{quizPart}"
     const val QUIZ_QUESTION = "quiz_question/{quizPart}/{questionIndex}"
     const val QUIZ_RESULT = "quiz_result"
+    const val QUIZ_HISTORY = "quiz_history"
     const val STUDY_BY_CATEGORY = "study_by_category/{category}"
 
     fun quizIntro(quizPart: Int) = "quiz_intro/$quizPart"

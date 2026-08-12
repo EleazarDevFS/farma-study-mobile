@@ -23,6 +23,7 @@ fun HomeScreen(
     onStudyByClassification: () -> Unit,
     onRandomStudy: () -> Unit,
     onQuiz: () -> Unit,
+    onHistory: () -> Unit,
     onLogout: () -> Unit
 ) {
     Scaffold { innerPadding ->
@@ -49,6 +50,10 @@ fun HomeScreen(
             Spacer(Modifier.height(12.dp))
             Button(onClick = onQuiz, modifier = Modifier.fillMaxWidth()) {
                 Text("Quiz general")
+            }
+            Spacer(Modifier.height(12.dp))
+            OutlinedButton(onClick = onHistory, modifier = Modifier.fillMaxWidth()) {
+                Text("Historial de quizzes")
             }
             Spacer(Modifier.height(32.dp))
             OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth()) {

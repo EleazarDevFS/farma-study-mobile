@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmastudy.FarmaApp
 import com.example.farmastudy.data.local.entity.QuestionEntity
+import com.example.farmastudy.data.local.entity.QuizAttemptEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,9 +30,12 @@ data class QuizUiState(
 
 class QuizViewModel(application: Application) : AndroidViewModel(application) {
     private val questionDao = (application as FarmaApp).database.questionDao()
+    private val quizAttemptDao = (application as FarmaApp).database.quizAttemptDao()
 
     private val _uiState = MutableStateFlow(QuizUiState())
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
+
+    private var attemptRecorded = false
 
     fun loadPartsInfo() {
         viewModelScope.launch {
@@ -43,6 +47,7 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
 
     fun startQuiz(quizPart: Int) {
         viewModelScope.launch {
+            attemptRecorded = false
             _uiState.update { it.copy(isLoading = true) }
             val questions = if (quizPart == 0) {
                 questionDao.getAll().first()
@@ -80,4 +85,24 @@ class QuizViewModel(application: Application) : AndroidViewModel(application) {
     fun next() {
         _uiState.update { it.copy(currentIndex = it.currentIndex + 1, selectedOption = null) }
     }
+
+    fun recordAttempt(username: String) {
+        val state = _uiState.value
+        if (attemptRecorded || !state.finished) return
+        attemptRecorded = true
+        if (username.isBlank()) return
+        viewModelScope.launch {
+            quizAttemptDao.insert(
+                QuizAttemptEntity(
+                    username = username,
+                    quizPart = state.quizPart,
+                    score = state.correctAnswers,
+                    total = state.totalQuestions,
+                    date = System.currentTimeMillis()
+                )
+            )
+        }
+    }
+
+    fun attemptsFor(username: String) = quizAttemptDao.getByUsername(username)
 }
