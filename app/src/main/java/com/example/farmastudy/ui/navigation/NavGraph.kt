@@ -6,13 +6,23 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.farmastudy.ui.AuthViewModel
+import com.example.farmastudy.ui.QuizViewModel
+import com.example.farmastudy.ui.StudyViewModel
+import com.example.farmastudy.ui.screens.classification.ClassificationScreen
 import com.example.farmastudy.ui.screens.home.HomeScreen
 import com.example.farmastudy.ui.screens.login.LoginScreen
+import com.example.farmastudy.ui.screens.quiz.QuizIntroScreen
+import com.example.farmastudy.ui.screens.quiz.QuizQuestionScreen
+import com.example.farmastudy.ui.screens.quiz.QuizResultScreen
+import com.example.farmastudy.ui.screens.random.RandomStudyScreen
 import com.example.farmastudy.ui.screens.register.RegisterScreen
+import com.example.farmastudy.ui.screens.study.StudyByCategoryScreen
 
 @Composable
 fun FarmaNavGraph(
@@ -77,6 +87,9 @@ private fun HomeNavGraph(
     username: String,
     modifier: Modifier = Modifier
 ) {
+    val studyViewModel: StudyViewModel = viewModel()
+    val quizViewModel: QuizViewModel = viewModel()
+
     NavHost(
         navController = navController,
         startDestination = Routes.HOME,
@@ -85,10 +98,85 @@ private fun HomeNavGraph(
         composable(Routes.HOME) {
             HomeScreen(
                 username = username,
-                onStudyByClassification = {},
-                onRandomStudy = {},
-                onQuiz = {},
+                onStudyByClassification = { navController.navigate(Routes.CLASSIFICATION) },
+                onRandomStudy = { navController.navigate(Routes.RANDOM_STUDY) },
+                onQuiz = { navController.navigate(Routes.quizIntro(0)) },
                 onLogout = authViewModel::logout
+            )
+        }
+        composable(Routes.CLASSIFICATION) {
+            ClassificationScreen(
+                onSelectCategory = { category ->
+                    navController.navigate(Routes.studyByCategory(category))
+                },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = Routes.STUDY_BY_CATEGORY,
+            arguments = listOf(navArgument("category") { type = NavType.StringType })
+        ) { entry ->
+            StudyByCategoryScreen(
+                category = entry.arguments?.getString("category").orEmpty(),
+                viewModel = studyViewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(Routes.RANDOM_STUDY) {
+            RandomStudyScreen(
+                viewModel = studyViewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = Routes.QUIZ_INTRO,
+            arguments = listOf(navArgument("quizPart") { type = NavType.IntType })
+        ) { entry ->
+            QuizIntroScreen(
+                quizPart = entry.arguments?.getInt("quizPart") ?: 0,
+                viewModel = quizViewModel,
+                onStartQuiz = { part -> navController.navigate(Routes.quizQuestion(part, 0)) },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(
+            route = Routes.QUIZ_QUESTION,
+            arguments = listOf(
+                navArgument("quizPart") { type = NavType.IntType },
+                navArgument("questionIndex") { type = NavType.IntType }
+            )
+        ) { entry ->
+            val quizPart = entry.arguments?.getInt("quizPart") ?: 0
+            val questionIndex = entry.arguments?.getInt("questionIndex") ?: 0
+            QuizQuestionScreen(
+                quizPart = quizPart,
+                questionIndex = questionIndex,
+                viewModel = quizViewModel,
+                onNext = { nextIndex ->
+                    if (nextIndex >= quizViewModel.uiState.value.questions.size) {
+                        navController.navigate(Routes.QUIZ_RESULT) {
+                            popUpTo(Routes.QUIZ_QUESTION) { inclusive = true }
+                        }
+                    } else {
+                        navController.navigate(Routes.quizQuestion(quizPart, nextIndex)) {
+                            popUpTo(Routes.QUIZ_QUESTION) { inclusive = true }
+                        }
+                    }
+                },
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable(Routes.QUIZ_RESULT) {
+            QuizResultScreen(
+                viewModel = quizViewModel,
+                onRetry = { part ->
+                    navController.navigate(Routes.quizIntro(part)) {
+                        popUpTo(Routes.HOME) { inclusive = false }
+                    }
+                },
+                onBackHome = {
+                    navController.popBackStack(Routes.HOME, inclusive = false)
+                }
             )
         }
     }

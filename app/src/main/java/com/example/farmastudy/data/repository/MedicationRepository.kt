@@ -5,6 +5,8 @@ import com.example.farmastudy.data.local.entity.MedicationEntity
 import kotlinx.coroutines.flow.Flow
 
 class MedicationRepository (val medicationDao: MedicationDao) {
+    fun getAll(): Flow<List<MedicationEntity>> = medicationDao.getAll()
+
     fun getByCategory(category: ClassificationCategory): Flow<List<MedicationEntity>> = when (category){
         ClassificationCategory.THERAPEUTIC_USE -> medicationDao.getByTherapeuticUse()
         ClassificationCategory.ORGANIC_SYSTEM -> medicationDao.getByOrganicSystem()
