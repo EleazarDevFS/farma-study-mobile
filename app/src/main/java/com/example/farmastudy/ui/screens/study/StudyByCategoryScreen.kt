@@ -55,7 +55,10 @@ fun StudyByCategoryScreen(
                 style = MaterialTheme.typography.headlineSmall
             )
             if (medications.isEmpty()) {
-                CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
+                Text(
+                    text = "Sin medicamentos para esta categoría",
+                    style = MaterialTheme.typography.bodyMedium
+                )
             } else {
                 LazyColumn(
                     modifier = Modifier.weight(1f),
