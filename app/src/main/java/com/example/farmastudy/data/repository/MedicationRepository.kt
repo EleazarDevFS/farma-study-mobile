@@ -4,7 +4,7 @@ import com.example.farmastudy.data.local.dao.MedicationDao
 import com.example.farmastudy.data.local.entity.MedicationEntity
 import kotlinx.coroutines.flow.Flow
 
-class MedicationRepository (val medicationDao: MedicationDao) {
+class MedicationRepository(private val medicationDao: MedicationDao) {
     fun getAll(): Flow<List<MedicationEntity>> = medicationDao.getAll()
 
     fun getByCategory(category: ClassificationCategory): Flow<List<MedicationEntity>> = when (category){
