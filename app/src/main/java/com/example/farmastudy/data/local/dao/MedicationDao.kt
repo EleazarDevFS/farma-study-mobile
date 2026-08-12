@@ -21,6 +21,9 @@ interface MedicationDao {
     @Query("SELECT * FROM medications WHERE organic_system IS NOT NULL")
     fun getByOrganicSystem(): Flow<List<MedicationEntity>>
 
+    @Query("SELECT * FROM medications ORDER BY id")
+    fun getAll(): Flow<List<MedicationEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(medications: List<MedicationEntity>)
 }

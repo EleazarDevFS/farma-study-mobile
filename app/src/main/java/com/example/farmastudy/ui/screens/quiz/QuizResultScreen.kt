@@ -1,4 +1,4 @@
-package com.example.farmastudy.ui.screens.home
+package com.example.farmastudy.ui.screens.quiz
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,19 +13,24 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.farmastudy.ui.QuizViewModel
 
 @Composable
-fun HomeScreen(
-    username: String,
-    onStudyByClassification: () -> Unit,
-    onRandomStudy: () -> Unit,
-    onQuiz: () -> Unit,
-    onHistory: () -> Unit,
-    onLogout: () -> Unit
+fun QuizResultScreen(
+    viewModel: QuizViewModel,
+    onRetry: (Int) -> Unit,
+    onBackHome: () -> Unit
 ) {
+    val state by viewModel.uiState.collectAsState()
+    val total = state.totalQuestions
+    val correct = state.correctAnswers
+    val percent = if (total > 0) correct * 100 / total else 0
+
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
@@ -35,29 +40,30 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text("Resultado", style = MaterialTheme.typography.headlineMedium)
+            Spacer(Modifier.height(24.dp))
             Text(
-                text = "Hola, $username",
+                text = "$correct de $total aciertos",
+                style = MaterialTheme.typography.titleLarge
+            )
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = "$percent%",
                 style = MaterialTheme.typography.headlineSmall
             )
             Spacer(Modifier.height(32.dp))
-            Button(onClick = onStudyByClassification, modifier = Modifier.fillMaxWidth()) {
-                Text("Estudio por clasificación")
+            Button(
+                onClick = { onRetry(state.quizPart) },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Reintentar")
             }
             Spacer(Modifier.height(12.dp))
-            Button(onClick = onRandomStudy, modifier = Modifier.fillMaxWidth()) {
-                Text("Estudio random")
-            }
-            Spacer(Modifier.height(12.dp))
-            Button(onClick = onQuiz, modifier = Modifier.fillMaxWidth()) {
-                Text("Quiz general")
-            }
-            Spacer(Modifier.height(12.dp))
-            OutlinedButton(onClick = onHistory, modifier = Modifier.fillMaxWidth()) {
-                Text("Historial de quizzes")
-            }
-            Spacer(Modifier.height(32.dp))
-            OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth()) {
-                Text("Cerrar sesión")
+            OutlinedButton(
+                onClick = onBackHome,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Volver al inicio")
             }
         }
     }

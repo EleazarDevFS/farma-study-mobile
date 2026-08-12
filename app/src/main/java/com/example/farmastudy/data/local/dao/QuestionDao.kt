@@ -17,4 +17,7 @@ interface QuestionDao {
 
     @Query("SELECT COUNT(*) FROM questions")
     suspend fun count(): Int
+
+    @Query("SELECT * FROM questions WHERE quiz_part = :part ORDER BY id")
+    suspend fun getByQuizPart(part: Int): List<QuestionEntity>
 }

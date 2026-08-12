@@ -1,4 +1,4 @@
-package com.example.farmastudy.ui.screens.home
+package com.example.farmastudy.ui.screens.classification
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -16,48 +18,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.farmastudy.data.repository.ClassificationCategory
 
 @Composable
-fun HomeScreen(
-    username: String,
-    onStudyByClassification: () -> Unit,
-    onRandomStudy: () -> Unit,
-    onQuiz: () -> Unit,
-    onHistory: () -> Unit,
-    onLogout: () -> Unit
+fun ClassificationScreen(
+    onSelectCategory: (String) -> Unit,
+    onBack: () -> Unit
 ) {
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(24.dp),
+                .padding(24.dp)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Hola, $username",
+                text = "Estudio por clasificación",
                 style = MaterialTheme.typography.headlineSmall
             )
             Spacer(Modifier.height(32.dp))
-            Button(onClick = onStudyByClassification, modifier = Modifier.fillMaxWidth()) {
-                Text("Estudio por clasificación")
+            ClassificationCategory.entries.forEach { category ->
+                Button(
+                    onClick = { onSelectCategory(category.route) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(category.label)
+                }
+                Spacer(Modifier.height(12.dp))
             }
-            Spacer(Modifier.height(12.dp))
-            Button(onClick = onRandomStudy, modifier = Modifier.fillMaxWidth()) {
-                Text("Estudio random")
-            }
-            Spacer(Modifier.height(12.dp))
-            Button(onClick = onQuiz, modifier = Modifier.fillMaxWidth()) {
-                Text("Quiz general")
-            }
-            Spacer(Modifier.height(12.dp))
-            OutlinedButton(onClick = onHistory, modifier = Modifier.fillMaxWidth()) {
-                Text("Historial de quizzes")
-            }
-            Spacer(Modifier.height(32.dp))
-            OutlinedButton(onClick = onLogout, modifier = Modifier.fillMaxWidth()) {
-                Text("Cerrar sesión")
+            Spacer(Modifier.height(20.dp))
+            OutlinedButton(onClick = onBack, modifier = Modifier.fillMaxWidth()) {
+                Text("Volver")
             }
         }
     }
