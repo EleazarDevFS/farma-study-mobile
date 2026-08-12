@@ -36,8 +36,10 @@ fun StudyByCategoryScreen(
     viewModel: StudyViewModel,
     onBack: () -> Unit
 ) {
-    val medications by remember(category) { viewModel.medicationsFor(category) }
-        .collectAsState(initial = emptyList())
+    val medications by remember(category) {
+        if (category.isBlank()) kotlinx.coroutines.flow.flowOf(emptyList())
+        else viewModel.medicationsFor(category)
+    }.collectAsState(initial = emptyList())
     var expandedId by remember { mutableStateOf<Int?>(null) }
 
     Scaffold { innerPadding ->
