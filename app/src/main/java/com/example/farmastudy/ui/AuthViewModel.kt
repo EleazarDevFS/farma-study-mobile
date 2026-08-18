@@ -38,11 +38,18 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
-            val result = repository.login(username.trim(), password)
-            if (result.success) {
-                sessionStore.save(result.username!!)
-            } else {
-                _uiState.update { it.copy(isLoading = false, errorMessage = result.message) }
+            try {
+                val result = repository.login(username.trim(), password)
+                if (result.success) {
+                    _uiState.update { it.copy(isLoading = false, errorMessage = null) }
+                    result.username?.let { sessionStore.save(it) }
+                } else {
+                    _uiState.update { it.copy(isLoading = false, errorMessage = result.message) }
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(isLoading = false, errorMessage = "Error al iniciar sesión, inténtalo de nuevo")
+                }
             }
         }
     }
@@ -72,24 +79,31 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, errorMessage = null) }
-            val result = repository.register(
-                username = username,
-                name = name,
-                age = ageInt!!,
-                email = email,
-                password = password
-            )
-            if (result.success) {
-                _uiState.update {
-                    it.copy(isLoading = false, infoMessage = "Registro exitoso, inicia sesión con tu usuario")
+            try {
+                val result = repository.register(
+                    username = username,
+                    name = name,
+                    age = ageInt!!,
+                    email = email,
+                    password = password
+                )
+                if (result.success) {
+                    _uiState.update {
+                        it.copy(isLoading = false, infoMessage = "Registro exitoso, inicia sesión con tu usuario")
+                    }
+                } else {
+                    _uiState.update { it.copy(isLoading = false, errorMessage = result.message) }
                 }
-            } else {
-                _uiState.update { it.copy(isLoading = false, errorMessage = result.message) }
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(isLoading = false, errorMessage = "Error al registrarse, inténtalo de nuevo")
+                }
             }
         }
     }
 
     fun logout() {
+        _uiState.value = AuthUiState()
         viewModelScope.launch { sessionStore.clear() }
     }
 
