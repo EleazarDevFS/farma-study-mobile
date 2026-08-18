@@ -97,8 +97,10 @@ private fun HomeNavGraph(
         modifier = modifier
     ) {
         composable(Routes.HOME) {
+            val stats by quizViewModel.statsFor(username).collectAsState(initial = null)
             HomeScreen(
                 username = username,
+                stats = stats,
                 onStudyByClassification = { navController.navigate(Routes.CLASSIFICATION) },
                 onRandomStudy = { navController.navigate(Routes.RANDOM_STUDY) },
                 onQuiz = { navController.navigate(Routes.quizIntro(0)) },
@@ -133,6 +135,7 @@ private fun HomeNavGraph(
         }
         composable(Routes.RANDOM_STUDY) {
             RandomStudyScreen(
+                username = username,
                 viewModel = studyViewModel,
                 onBack = { navController.popBackStack() }
             )

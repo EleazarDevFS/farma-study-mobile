@@ -12,4 +12,8 @@ data class QuizAttemptEntity(
     val score: Int,
     val total: Int,
     val date: Long
-)
+) {
+    companion object {
+        const val RANDOM_QUIZ_PART = -1
+    }
+}
