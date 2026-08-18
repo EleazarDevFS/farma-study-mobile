@@ -13,4 +13,12 @@ data class QuestionEntity(
     @ColumnInfo(name = "option_d") val optionD: String,
     @ColumnInfo(name = "correct_option") val correctOption: String,
     @ColumnInfo(name = "quiz_part") val quizPart: Int
-)
+) {
+    val correctAnswerText: String
+        get() = when (correctOption) {
+            "a" -> optionA
+            "b" -> optionB
+            "c" -> optionC
+            else -> optionD
+        }
+}

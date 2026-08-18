@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.farmastudy.FarmaApp
 import com.example.farmastudy.data.local.entity.MedicationEntity
 import com.example.farmastudy.data.local.entity.QuestionEntity
+import com.example.farmastudy.data.local.entity.QuizAttemptEntity
 import com.example.farmastudy.data.repository.MedicationRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,6 +54,7 @@ data class RandomStudyUiState(
 class StudyViewModel(application: Application) : AndroidViewModel(application) {
     private val medicationRepository = MedicationRepository((application as FarmaApp).database.medicationDao())
     private val questionDao = (application as FarmaApp).database.questionDao()
+    private val quizAttemptDao = (application as FarmaApp).database.quizAttemptDao()
 
     private val _randomState = MutableStateFlow(RandomStudyUiState())
     val randomState: StateFlow<RandomStudyUiState> = _randomState.asStateFlow()
@@ -89,6 +91,23 @@ class StudyViewModel(application: Application) : AndroidViewModel(application) {
     fun next() {
         _randomState.update {
             it.copy(currentIndex = it.currentIndex + 1, flashcardRevealed = false, selectedOption = null)
+        }
+    }
+
+    fun recordAttempt(username: String) {
+        val state = _randomState.value
+        if (state.items.isEmpty() || !state.finished) return
+        if (username.isBlank()) return
+        viewModelScope.launch {
+            quizAttemptDao.insert(
+                QuizAttemptEntity(
+                    username = username,
+                    quizPart = QuizAttemptEntity.RANDOM_QUIZ_PART,
+                    score = state.correctAnswers,
+                    total = state.questionCount,
+                    date = System.currentTimeMillis()
+                )
+            )
         }
     }
 }
