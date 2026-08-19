@@ -1,9 +1,6 @@
 package com.example.farmastudy.ui.screens.quiz
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,7 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.farmastudy.ui.QuizViewModel
-import com.example.farmastudy.ui.components.AnswerFeedback
+import com.example.farmastudy.ui.components.AnswerFeedbackAnimated
 import com.example.farmastudy.ui.components.ConfirmExitDialog
 import com.example.farmastudy.ui.components.ProgressHeader
 import com.example.farmastudy.ui.components.QuestionOptions
@@ -126,19 +123,7 @@ fun QuizQuestionScreen(
                 }
             }
 
-            AnimatedVisibility(
-                visible = state.selectedOption != null,
-                enter = expandVertically(),
-                exit = shrinkVertically()
-            ) {
-                Column {
-                    Spacer(Modifier.height(12.dp))
-                    AnswerFeedback(
-                        isCorrect = state.selectedOption == question.correctOption,
-                        correctAnswer = question.correctAnswerText
-                    )
-                }
-            }
+            AnswerFeedbackAnimated(state.selectedOption, question.correctOption, question.correctAnswerText)
 
             Spacer(Modifier.height(16.dp))
             Button(

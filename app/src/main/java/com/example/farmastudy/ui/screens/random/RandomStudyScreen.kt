@@ -48,7 +48,7 @@ import com.example.farmastudy.data.local.entity.QuestionEntity
 import com.example.farmastudy.ui.RandomItem
 import com.example.farmastudy.ui.RandomStudyUiState
 import com.example.farmastudy.ui.StudyViewModel
-import com.example.farmastudy.ui.components.AnswerFeedback
+import com.example.farmastudy.ui.components.AnswerFeedbackAnimated
 import com.example.farmastudy.ui.components.ConfirmExitDialog
 import com.example.farmastudy.ui.components.ProgressHeader
 import com.example.farmastudy.ui.components.ScreenHeader
@@ -156,17 +156,11 @@ private fun StudyContent(
                 selectedOption = state.selectedOption,
                 onSelectOption = viewModel::selectOption
             )
-            AnimatedVisibility(
-                visible = state.selectedOption != null,
-                enter = expandVertically(),
-                exit = shrinkVertically()
-            ) {
-                Spacer(Modifier.height(12.dp))
-                AnswerFeedback(
-                    isCorrect = state.selectedOption == item.question.correctOption,
-                    correctAnswer = item.question.correctAnswerText
-                )
-            }
+            AnswerFeedbackAnimated(
+                selectedOption = state.selectedOption,
+                correctOption = item.question.correctOption,
+                correctAnswer = item.question.correctAnswerText
+            )
         }
 
         null -> Unit
@@ -371,8 +365,11 @@ private fun FinishedContent(
 }
 
 private fun medicationFields(medication: MedicationEntity): List<Pair<String, String>> = listOfNotNull(
-    medication.therapeuticUse?.let { "Uso terapéutico" to it },
-    medication.mechanism?.let { "Mecanismo" to it },
-    medication.chemicalStructure?.let { "Estructura química" to it },
-    medication.organicSystem?.let { "Sistema orgánico" to it }
+    medication.therapeuticUse.toDetail("Uso terapéutico"),
+    medication.mechanism.toDetail("Mecanismo"),
+    medication.chemicalStructure.toDetail("Estructura química"),
+    medication.organicSystem.toDetail("Sistema orgánico")
 )
+
+private fun String?.toDetail(label: String): Pair<String, String>? =
+    takeIf { !isNullOrBlank() && this != "null" }?.let { label to it }
