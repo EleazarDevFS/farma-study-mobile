@@ -365,8 +365,11 @@ private fun FinishedContent(
 }
 
 private fun medicationFields(medication: MedicationEntity): List<Pair<String, String>> = listOfNotNull(
-    medication.therapeuticUse?.let { "Uso terapéutico" to it },
-    medication.mechanism?.let { "Mecanismo" to it },
-    medication.chemicalStructure?.let { "Estructura química" to it },
-    medication.organicSystem?.let { "Sistema orgánico" to it }
+    medication.therapeuticUse.toDetail("Uso terapéutico"),
+    medication.mechanism.toDetail("Mecanismo"),
+    medication.chemicalStructure.toDetail("Estructura química"),
+    medication.organicSystem.toDetail("Sistema orgánico")
 )
+
+private fun String?.toDetail(label: String): Pair<String, String>? =
+    takeIf { !isNullOrBlank() && this != "null" }?.let { label to it }
