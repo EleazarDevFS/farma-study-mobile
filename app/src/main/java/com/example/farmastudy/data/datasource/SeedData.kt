@@ -30,13 +30,16 @@ object SeedData {
             MedicationEntity(
                 id = i + 1,
                 name = o.getString("name"),
-                therapeuticUse = o.optString("therapeuticUse").ifEmpty { null },
-                mechanism = o.optString("mechanism").ifEmpty { null },
-                chemicalStructure = o.optString("chemicalStructure").ifEmpty { null },
-                organicSystem = o.optString("organicSystem").ifEmpty { null }
+                therapeuticUse = optNullable(o, "therapeuticUse"),
+                mechanism = optNullable(o, "mechanism"),
+                chemicalStructure = optNullable(o, "chemicalStructure"),
+                organicSystem = optNullable(o, "organicSystem")
             )
         }
     }
+
+    private fun optNullable(o: JSONObject, key: String): String? =
+        if (o.isNull(key)) null else o.optString(key).trim().ifEmpty { null }
 
     private fun parseQuestions(json: String): List<QuestionEntity> {
         val arr = JSONObject(json).getJSONArray("questions")
