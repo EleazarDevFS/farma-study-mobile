@@ -1,5 +1,8 @@
 package com.example.farmastudy.ui.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +24,10 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -167,6 +174,30 @@ fun AnswerFeedback(
                     color = contentColor
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun AnswerFeedbackAnimated(
+    selectedOption: String?,
+    correctOption: String,
+    correctAnswer: String?
+){
+    var lastCorrect by remember { mutableStateOf(false) }
+    var lastCorrectAnswer by remember { mutableStateOf<String?>(null) }
+    if(selectedOption != null){
+        lastCorrect = selectedOption == correctOption
+        lastCorrectAnswer = correctAnswer
+    }
+    AnimatedVisibility(
+        visible = selectedOption != null,
+        enter = expandVertically(),
+        exit = shrinkVertically()
+    ) {
+        Column {
+            Spacer(Modifier.height(12.dp))
+            AnswerFeedback(isCorrect = lastCorrect, correctAnswer = lastCorrectAnswer)
         }
     }
 }
